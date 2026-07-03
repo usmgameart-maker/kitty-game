@@ -5,6 +5,12 @@ export default class Boot extends Phaser.Scene
         super('Boot');
     }
 
+    preload()
+    {
+        // загружаем лого ДО Preloader — чтобы показать его на экране загрузки
+        this.load.image('logo_load', 'assets/images/logo_load.png');
+    }
+
     create()
     {
         console.log('BOOT');

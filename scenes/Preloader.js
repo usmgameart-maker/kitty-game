@@ -10,6 +10,35 @@ export default class Preloader extends Phaser.Scene
         console.log('PRELOADER');
 
         // =====================
+        // ЭКРАН ЗАГРУЗКИ
+        // =====================
+        const cx = this.scale.width / 2;
+        const cy = this.scale.height / 2;
+
+        // фон
+        this.add.rectangle(cx, cy, this.scale.width, this.scale.height, 0xD5F2FF);
+
+        // логотип (загружен в Boot)
+        this.add.image(cx, cy - 90, 'logo_load').setScale(0.5);
+
+        // фон прогресс-бара
+        this.add.rectangle(cx, cy + 70, 560, 26, 0xffffff);
+
+        // заливка прогресс-бара
+        const bar = this.add.rectangle(cx - 279, cy + 70, 2, 22, 0x6a994e)
+            .setOrigin(0, 0.5);
+
+        this.load.on('progress', (value) => {
+            this.tweens.killTweensOf(bar);
+            this.tweens.add({
+                targets: bar,
+                width: 556 * value,
+                duration: 1200,
+                ease: 'Sine.easeOut'
+            });
+        });
+
+        // =====================
         // ЗАГРУЗКА РЕСУРСОВ
         // =====================
 
@@ -213,6 +242,10 @@ export default class Preloader extends Phaser.Scene
 
     create()
     {
-        this.scene.start('MainMenu');
+        this.cameras.main.fadeOut(1000, 138, 209, 240);
+        this.cameras.main.once('camerafadeoutcomplete', () =>
+        {
+            this.scene.start('MainMenu');
+        });
     }
 }
