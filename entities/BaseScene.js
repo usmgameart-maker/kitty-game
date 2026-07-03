@@ -123,7 +123,7 @@ export default class BaseScene extends Phaser.Scene
             title: 'Level', // название уровня
             instruction: '', // инструкция (задание игроку)
             score: true, // показывать счет
-            background: 'sky', // фон
+            background: 'background', // фон
             music: 'bg_music', // фоновая музыка
             time: 60, // время игры, если на уровне не определено то будет 60 секунд
             ...config
